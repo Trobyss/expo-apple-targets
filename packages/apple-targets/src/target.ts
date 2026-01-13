@@ -21,6 +21,8 @@ export type ExtensionType =
   | "safari"
   | "app-intent"
   | "device-activity-monitor"
+  | "shield-action"
+  | "shield-configuration"
   | "network-packet-tunnel"
   | "network-app-proxy"
   | "network-filter-data"
@@ -49,6 +51,8 @@ export const KNOWN_EXTENSION_POINT_IDENTIFIERS: Record<string, ExtensionType> =
     "com.apple.services": "action",
     "com.apple.appintents-extension": "app-intent",
     "com.apple.deviceactivity.monitor-extension": "device-activity-monitor",
+    "com.apple.ManagedSettings.shield-action-service": "shield-action",
+    "com.apple.ManagedSettingsUI.shield-configuration-service": "shield-configuration",
     // "com.apple.intents-service": "intents",
     "com.apple.networkextension.packet-tunnel": "network-packet-tunnel",
     "com.apple.networkextension.app-proxy": "network-app-proxy",
@@ -87,6 +91,8 @@ export const SHOULD_USE_APP_GROUPS_BY_DEFAULT: Record<ExtensionType, boolean> =
     "network-app-proxy": false,
     "network-dns-proxy": false,
     "network-filter-data": false,
+    "shield-action": true,
+    "shield-configuration": true,
   };
 
 // TODO: Maybe we can replace `NSExtensionPrincipalClass` with the `@main` annotation that newer extensions use?
@@ -344,6 +350,29 @@ export function getTargetInfoPlistForType(type: ExtensionType) {
             "$(PRODUCT_MODULE_NAME).FilterDataProvider",
         },
       };
+
+      case "shield-action":
+    return {
+      NSExtension: {
+        NSExtensionPrincipalClass: "$(PRODUCT_MODULE_NAME).ShieldAction",
+        NSExtensionPointIdentifier,
+      },
+    };
+  case "shield-configuration":
+    return {
+      NSExtension: {
+        NSExtensionPrincipalClass: "$(PRODUCT_MODULE_NAME).ShieldConfiguration",
+        NSExtensionPointIdentifier,
+      },
+    };
+  case "device-activity-monitor":
+    return {
+      NSExtension: {
+        NSExtensionPrincipalClass: "$(PRODUCT_MODULE_NAME).DeviceActivityMonitorExtension",
+        NSExtensionPointIdentifier,
+      },
+    };
+  
     default:
       // Default: used for widget and bg-download
       return {
@@ -383,6 +412,9 @@ export function needsEmbeddedSwift(type: ExtensionType) {
     "network-dns-proxy",
     "network-filter-data",
     "keyboard",
+    "device-activity-monitor",
+    "shield-action",
+    "shield-configuration",
   ].includes(type);
 }
 
@@ -413,11 +445,14 @@ export function getFrameworksForType(type: ExtensionType) {
       return [
         // "UniformTypeIdentifiers"
       ];
+    case "shield-action":
+      return ["ManagedSettingsUI"];
     case "network-packet-tunnel":
     case "network-app-proxy":
     case "network-dns-proxy":
     case "network-filter-data":
       return ["NetworkExtension"];
+    case "shield-configuration":  
     default:
       return [];
   }

@@ -799,6 +799,8 @@ function getConfigurationListBuildSettingsForType(
     case "network-packet-tunnel":
     case "quicklook-thumbnail":
     case "spotlight":
+    case "shield-action":
+    case "shield-configuration":
       return createNotificationContentConfigurationList(props);
     default:
       const exhaustiveCheck: never = props.type;

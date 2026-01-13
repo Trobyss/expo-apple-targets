@@ -308,7 +308,8 @@ Ideally, this would be generated automatically based on a fully qualified Xcode 
 | network-app-proxy       | App Proxy Network Extension        |
 | network-dns-proxy       | DNS Proxy Network Extension        |
 | network-filter-data     | Filter Data Network Extension      |
-
+| shield-configuration    | Shield Configuration Extension     |
+| shield-action           | Shield Action Extension            |
 
 <!-- | imessage             | iMessage Extension               | -->
 
