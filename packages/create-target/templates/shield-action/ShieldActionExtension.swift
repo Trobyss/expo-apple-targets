@@ -1,10 +1,3 @@
-//
-//  ShieldActionExtension.swift
-//  ShieldAction
-//
-//  Created by Robert Herber on 2024-10-25.
-//
-
 import ManagedSettings
 import UIKit
 

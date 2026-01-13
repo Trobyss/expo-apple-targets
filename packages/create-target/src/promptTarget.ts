@@ -81,6 +81,14 @@ export const TARGETS = [
   { title: "Safari Extension", value: "safari", description: "" },
   { title: "Siri Intent", value: "intent", description: "" },
   { title: "Siri Intent UI", value: "intent-ui", description: "" },
+  {
+    title: "Shield Action",
+    value: "shield-action",
+  },
+  {
+    title: "Shield Configuration",
+    value: "shield-configuration",
+  },
   { title: "Share Extension", value: "share", description: "" },
   { title: "Watch", value: "watch", description: "" },
 ];

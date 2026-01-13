@@ -1,10 +1,3 @@
-//
-//  ShieldConfigurationExtension.swift
-//  ShieldConfiguration
-//
-//  Created by Robert Herber on 2024-10-25.
-//
-
 import Foundation
 import ManagedSettings
 import ManagedSettingsUI
